@@ -1,0 +1,3 @@
+Que bom
+texto 01 Nome: texto.txt
+Funcionou
