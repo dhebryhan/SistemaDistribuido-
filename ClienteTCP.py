@@ -1,25 +1,25 @@
-from time import sleep
-from socket import *
-serverName = '127.0.0.1'
-serverPort = 9999
+from time import sleep #atraso de tempo
+from socket import * #
+nomeServidor = '127.0.0.1'
+portaServidor = 9999
 
-clientSocket = socket(AF_INET, SOCK_STREAM)
-clientSocket.connect((serverName, serverPort))
-arq = open('resultado.txt', 'w')
+s = socket(AF_INET, SOCK_STREAM) #AF_inet -> tipo de Ip ; sock_stream -> definindo socket de fluxo.
+s.connect((nomeServidor, portaServidor)) #método de conexao
+arquivo = open('resultado.txt', 'w') #open metodo para leitura e escrita de documento.
 l = 0
-sentence = input('Qual arquivo para baixar:')
-clientSocket.send(sentence.encode())
+nomeDocumento = input('Qual arquivo para baixar:') 
+s.send(nomeDocumento.encode()) #
 
 
 while 1:
-    dados = clientSocket.recv(1024)
+    dados = s.recv(1024) #esperando terminar trocas de mensagens
     sleep(1)
-    print("linha "+str(l)+": "+dados.decode())
+    print("linha "+str(l)+": "+dados.decode()) #decode melhora a visualização das resposta
     l += 1
     if not dados:
         break
-    arq.write(dados.decode())
+    arquivo.write(dados.decode())
    
-arq.close()
+arquivo.close()
 
-clientSocket.close()
+s.close()#fechar conexao.
